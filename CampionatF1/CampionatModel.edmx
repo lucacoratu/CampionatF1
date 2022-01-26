@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Campionat_F1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Constructors">
+          <Key>
+            <PropertyRef Name="ConstructorID" />
+          </Key>
+          <Property Name="ConstructorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pilots">
+          <Key>
+            <PropertyRef Name="pilotID" />
+          </Key>
+          <Property Name="pilotID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConstructorID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Piloti_Constructors">
+          <End Role="Constructors" Type="Self.Constructors" Multiplicity="1" />
+          <End Role="Pilots" Type="Self.Pilots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constructors">
+              <PropertyRef Name="ConstructorID" />
+            </Principal>
+            <Dependent Role="Pilots">
+              <PropertyRef Name="ConstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Campionat_F1ModelStoreContainer">
+          <EntitySet Name="Constructors" EntityType="Self.Constructors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pilots" EntityType="Self.Pilots" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Piloti_Constructors" Association="Self.FK_Piloti_Constructors">
+            <End Role="Constructors" EntitySet="Constructors" />
+            <End Role="Pilots" EntitySet="Pilots" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Campionat_F1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Constructor">
+          <Key>
+            <PropertyRef Name="ConstructorID" />
+          </Key>
+          <Property Name="ConstructorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pilots" Relationship="Self.FK_Piloti_Constructors" FromRole="Constructors" ToRole="Pilots" />
+        </EntityType>
+        <EntityType Name="Pilot">
+          <Key>
+            <PropertyRef Name="pilotID" />
+          </Key>
+          <Property Name="pilotID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConstructorID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Constructor" Relationship="Self.FK_Piloti_Constructors" FromRole="Pilots" ToRole="Constructors" />
+        </EntityType>
+        <Association Name="FK_Piloti_Constructors">
+          <End Role="Constructors" Type="Self.Constructor" Multiplicity="1" />
+          <End Role="Pilots" Type="Self.Pilot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constructors">
+              <PropertyRef Name="ConstructorID" />
+            </Principal>
+            <Dependent Role="Pilots">
+              <PropertyRef Name="ConstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Campionat_F1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Constructors" EntityType="Self.Constructor" />
+          <EntitySet Name="Pilots" EntityType="Self.Pilot" />
+          <AssociationSet Name="FK_Piloti_Constructors" Association="Self.FK_Piloti_Constructors">
+            <End Role="Constructors" EntitySet="Constructors" />
+            <End Role="Pilots" EntitySet="Pilots" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Campionat_F1ModelStoreContainer" CdmEntityContainer="Campionat_F1Entities">
+          <EntitySetMapping Name="Constructors">
+            <EntityTypeMapping TypeName="Campionat_F1Model.Constructor">
+              <MappingFragment StoreEntitySet="Constructors">
+                <ScalarProperty Name="ConstructorID" ColumnName="ConstructorID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pilots">
+            <EntityTypeMapping TypeName="Campionat_F1Model.Pilot">
+              <MappingFragment StoreEntitySet="Pilots">
+                <ScalarProperty Name="pilotID" ColumnName="pilotID" />
+                <ScalarProperty Name="ConstructorID" ColumnName="ConstructorID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

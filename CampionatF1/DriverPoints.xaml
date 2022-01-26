@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="CampionatF1.DriverPoints"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CampionatF1"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800" Background="Transparent">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.9*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Name" Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
+        <Label Content="Constructor" Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        <Label Content="Points" Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"/>
+
+        <StackPanel x:Name="stckpanel_Names" Grid.Column="0" Grid.Row="1">
+        </StackPanel>        
+        <StackPanel x:Name="stckpanel_Constructors" Grid.Column="1" Grid.Row="1">
+        </StackPanel>        
+        <StackPanel x:Name="stckpanel_Points" Grid.Column="2" Grid.Row="1">
+        </StackPanel>
+    </Grid>
+</UserControl>
