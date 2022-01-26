@@ -23,7 +23,9 @@ namespace CampionatF1
         static public List<string> GetDriverNames()
         {
             List<string> drivers = (from d in context.Pilots
-                                    select d.Name).ToList();
+                                    orderby d.Score descending
+                                    select d.Name
+                                    ).ToList();
 
             return drivers;
         }
@@ -31,6 +33,7 @@ namespace CampionatF1
         static public List<int> GetDriverPoints()
         {
             List<int> points = (from d in context.Pilots
+                                orderby d.Score descending
                                 select d.Score).ToList();
 
             return points;
@@ -39,7 +42,8 @@ namespace CampionatF1
         static public List<string> GetConstructorNames()
         {
             List<string> constructors = (from c in context.Constructors
-                            select c.Name).ToList();
+                                         orderby c.Score descending
+                                        select c.Name).ToList();
 
             return constructors;
         }
@@ -47,6 +51,7 @@ namespace CampionatF1
         static public List<int> GetConstructorsPoints()
         {
             List<int> points = (from c in context.Constructors
+                                orderby c.Score descending
                                 select c.Score).ToList();
 
             return points;
